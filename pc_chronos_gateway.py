@@ -70,7 +70,6 @@ def main():
     try:
       node.closeNode()
     except:
-      print "Could not close node."
       pass
     return -1
   
@@ -78,24 +77,22 @@ def main():
   publish.start()
   
   devices = getconfiguration('Devices',1)
+  # kind of a hack - just getting the last device listed in options.cfg
   for k, v in devices.iteritems():
     cik = v
-  print cik
   
   while False == kill_threads:
     node.writePort(CMD_RDACC)
     rxchar = node.readPort(7)
     if '' != rxchar:
       if '\x01' == rxchar[3]:
-        print "x - %s" % ord(rxchar[4])
-        print "y - %s" % ord(rxchar[5])
-        print "z - %s" % ord(rxchar[6])
+        #print "x - %s" % ord(rxchar[4])
+        #print "y - %s" % ord(rxchar[5])
+        #print "z - %s" % ord(rxchar[6])
         publish.addData(cik, "x_axis", ord(rxchar[4]))
-        time.sleep(1)
         publish.addData(cik, "y_axis", ord(rxchar[5]))
-        time.sleep(1)
         publish.addData(cik, "z_axis", ord(rxchar[6]))
-        time.sleep(1)
+        time.sleep(1)   #change this to report at a slower rate
     else: 
       print "No response to read accelerometer command!"
   
@@ -114,11 +111,9 @@ class GatewayNodeIO():
     self.phraseresponse = phraseresponse
     self.portname = portsettings['port_name']
     self.portbaud = int(portsettings['baud_rate'])
-    print "1"
     try:  
       s = serial.Serial(port=self.portname)
       s.close()   # explicit close
-      print "2"
       if -1 == self.openNode():
         print "Problem connecting to valid Node - check serial port connection."
         self.closeNode()
@@ -151,7 +146,7 @@ class GatewayNodeIO():
     self.s.interCharTimeout = None   
     #if we are talking to a valid node, it will recognize the passphrase
     # and will send back the phraseresponse.
-    if 0:#'' != self.passphrase:
+    if '' != self.passphrase:
       self.writePort(self.passphrase)
       response = self.readPort(len(self.phraseresponse))
       if response != self.phraseresponse: 
