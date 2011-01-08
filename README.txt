@@ -45,7 +45,14 @@ http://pypi.python.org/pypi/pyserial
 If running Debian Linux (or Ubuntu), you can > apt-get install python-serial
 
 ****************************************
-5) configure it
+5) install exompp
+****************************************
+https://github.com/exosite-labs/exompp-python
+
+This is a client library that supports the Exosite XMPP API
+
+****************************************
+6) configure it
 ****************************************
 Open the file "options.cfg"
 --) update the serial port # in options.cfg to point to the port you are
@@ -56,7 +63,7 @@ Open the file "options.cfg"
 	whatever is sent by the device hooked to the serial port)
 
 ****************************************
-6) test it out
+7) test it out
 ****************************************
 get python script "pc_chronos_gateway.py"
 --) attach a CC1111 RF AP device to a/the serial port
@@ -67,6 +74,6 @@ get python script "pc_chronos_gateway.py"
 	that data was generated
 
 ****************************************
-7) tweak it
+8) tweak it
 ****************************************
 --) play around, use it, extend it!
