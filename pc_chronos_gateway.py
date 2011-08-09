@@ -64,6 +64,7 @@ def main():
   global kill_threads
   ## read node connection info from config file
   cfg_filepath = os.path.join(os.getcwd(),'options.cfg')
+  connection = getconfiguration (cfg_filepath,'Exosite_Connection',1)
   serialport = getconfiguration(cfg_filepath,'Node_Connection',1)
   
   ##setup node communications
@@ -76,8 +77,8 @@ def main():
     except:
       pass
     return -1
-  
-  publish = PublishToExosite(cfg_filepath)
+
+  publish = PublishToExosite(connection)
   publish.start()
   
   devices = getconfiguration(cfg_filepath,'Devices',1)
@@ -101,10 +102,29 @@ def main():
       print "No response to read accelerometer command!"
   
   node.closeNode()
+  publish.stop()
   
   print "\n"
   print "Exiting Program"
   return
+
+#===============================================================================
+def getconfiguration(cfg_filepath, section, printvalues):
+#===============================================================================
+  config = ConfigParser.RawConfigParser()
+  config.read(cfg_filepath)
+  config_list = {}
+  if printvalues:
+    print "======================"
+    print "%s Settings:" % section
+    print "======================"
+  for option in config.options(section):
+    config_list[option] = config.get(section, option)
+    if printvalues: print "%s: %s" % (option,config_list[option])
+  if printvalues:
+    print "======================"
+    print "\n"
+  return config_list
 
 #===============================================================================
 class GatewayNodeIO():
