@@ -96,7 +96,7 @@ def main():
         publish.addData(cik, "x_axis", ord(rxchar[4]))
         publish.addData(cik, "y_axis", ord(rxchar[5]))
         publish.addData(cik, "z_axis", ord(rxchar[6]))
-        time.sleep(1)   #change this to report at a slower rate
+        time.sleep(5)   #change this to report at a slower rate
     else: 
       print "No response to read accelerometer command!"
   
