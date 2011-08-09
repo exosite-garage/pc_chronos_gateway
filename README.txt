@@ -47,9 +47,9 @@ If running Debian Linux (or Ubuntu), you can > apt-get install python-serial
 ****************************************
 5) install exompp
 ****************************************
-https://github.com/exosite-labs/exompp-python
+https://github.com/exosite-labs/pyexompp
 
-This is a client library that supports the Exosite XMPP API
+This is a library that supports an XMPP chat interface to Exosite's Platform.
 
 ****************************************
 6) configure it
